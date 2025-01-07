@@ -1,6 +1,6 @@
 package solid_exercicios2;
 
-public class TesteCalculadora {
+public class CalculadoraApp {
     public static void main(String[] args) {
         Calculadora calculadora = new Calculadora();
 

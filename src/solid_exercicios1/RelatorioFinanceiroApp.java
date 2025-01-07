@@ -1,6 +1,6 @@
 package solid_exercicios1;
 
-public class TesteFinanceiro {
+public class RelatorioFinanceiroApp {
 
     public static void main(String[] args) {
         RelatorioFinanceiro relatorioFinanceiro = new RelatorioFinanceiro();
