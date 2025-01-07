@@ -192,6 +192,40 @@ public class Main {
 
 ---
 
+
+### Exercício 5: Dependency Inversion Principle (DIP)
+
+#### Descrição
+
+O **Princípio da Inversão de Dependência** (Dependency Inversion Principle - DIP) afirma que:
+
+1. Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem depender de abstrações.
+2. Abstrações não devem depender de detalhes. Detalhes devem depender de abstrações.
+
+Este exercício demonstra como refatorar um código para seguir o DIP, introduzindo uma interface que abstrai o comportamento de dispositivos de entrada e fazendo com que a classe `Computador` dependa dessa abstração.
+
+---
+
+#### Código Original (Violação do DIP)
+
+O código abaixo viola o DIP, pois a classe `Computador` depende diretamente da implementação concreta da classe `Teclado`:
+
+```java
+public class Teclado {
+    public void digitar() {
+        System.out.println("Digitando...");
+    }
+}
+
+public class Computador {
+    private Teclado teclado;
+
+    public Computador() {
+        this.teclado = new Teclado();
+    }
+}
+```
+
 ## **Como Executar os Exercícios**
 
 1. Clone este repositório:
@@ -207,11 +241,9 @@ public class Main {
    java Main
    ```
 
----
 
-## **Conclusão**
+### **Conclusão**
 
 Os exercícios apresentados demonstram como aplicar os princípios SOLID para melhorar a qualidade do código, tornando-o mais modular, coeso e fácil de manter. Cada princípio foi abordado com exemplos práticos e refatorações que ilustram os benefícios de seguir essas diretrizes no desenvolvimento de software.
-```
 
 Este `README.md` inclui todos os quatro exercícios com explicações detalhadas, código refatorado e instruções de execução.
