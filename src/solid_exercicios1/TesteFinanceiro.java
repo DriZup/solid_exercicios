@@ -7,7 +7,7 @@ public class TesteFinanceiro {
 
         relatorioFinanceiro.gerarRelatorio();
 
-        RelatorioFinanceiro.EnviandorEmail enviandorEmail = relatorioFinanceiro.new EnviandorEmail();
+        EnviandorEmail enviandorEmail = new EnviandorEmail();
 
         enviandorEmail.enviarPorEmail("Relatorio Financeiro de Janeiro");
     }
