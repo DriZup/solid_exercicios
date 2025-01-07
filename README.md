@@ -1,5 +1,6 @@
 
-## **Princípios SOLID - Exercícios de Refatoração**
+
+# **Princípios SOLID - Exercícios de Refatoração**
 
 Os princípios SOLID são um conjunto de diretrizes para o design de software que ajudam a criar sistemas mais flexíveis, escaláveis e fáceis de manter. Este repositório apresenta exercícios práticos para aplicar os princípios SOLID em diferentes cenários.
 
@@ -8,43 +9,29 @@ Os princípios abordados são:
 1. **SRP (Single Responsibility Principle)** - Princípio da Responsabilidade Única  
 2. **OCP (Open/Closed Principle)** - Princípio Aberto/Fechado  
 3. **LSP (Liskov Substitution Principle)** - Princípio da Substituição de Liskov  
+4. **ISP (Interface Segregation Principle)** - Princípio da Segregação de Interfaces  
 
 ---
 
-### **Exercício 1: Princípio da Responsabilidade Única (SRP)**
+## **Exercício 1: Princípio da Responsabilidade Única (SRP)**
 
-#### **Enunciado**
-Você foi contratado por um banco para criar um sistema que gere relatórios financeiros. Atualmente, a classe `RelatorioFinanceiro` faz duas coisas: gera o relatório e envia-o por e-mail. Refatore o código para que ele siga o Princípio da Responsabilidade Única (SRP), separando as responsabilidades em diferentes classes.
+### **Descrição**
+Refatorar uma classe que realiza múltiplas responsabilidades em classes separadas, cada uma com uma única responsabilidade.
 
-#### **Código Inicial**
-A classe `RelatorioFinanceiro` original realizava duas responsabilidades:
-1. Gerar o relatório financeiro.  
-2. Enviar o relatório por e-mail.  
-
-#### **Refatoração**
-A responsabilidade de gerar o relatório foi movida para a classe `GeradorRelatorio`.  
-A responsabilidade de enviar o relatório por e-mail foi movida para a classe `EnviadorEmail`.  
-
-Agora, cada classe tem uma única responsabilidade, conforme exigido pelo SRP.
-
-#### **Código Refatorado**
-
+### **Código Refatorado**
 ```java
-// Classe responsável por gerar o relatório financeiro
 public class GeradorRelatorio {
     public void gerarRelatorio() {
         System.out.println("Relatório financeiro gerado.");
     }
 }
 
-// Classe responsável por enviar o relatório por e-mail
 public class EnviadorEmail {
     public void enviarPorEmail(String mensagem) {
         System.out.println("Enviando e-mail: " + mensagem);
     }
 }
 
-// Exemplo de uso
 public class Main {
     public static void main(String[] args) {
         GeradorRelatorio gerador = new GeradorRelatorio();
@@ -56,35 +43,19 @@ public class Main {
 }
 ```
 
-#### **Benefícios da Refatoração**
-- Cada classe tem uma única responsabilidade, facilitando a manutenção.  
-- Redução de dependências entre as classes.  
-- Maior flexibilidade para mudanças futuras.  
-
 ---
 
-### **Exercício 2: Princípio Aberto/Fechado (OCP)**
+## **Exercício 2: Princípio Aberto/Fechado (OCP)**
 
-#### **Enunciado**
-Você está desenvolvendo uma calculadora para o banco que realiza operações básicas como soma e subtração. No entanto, o gerente pediu para adicionar uma nova operação: multiplicação. Refatore o código para que ele siga o Princípio Aberto/Fechado (OCP), permitindo adicionar novas operações sem modificar o código existente.
+### **Descrição**
+Refatorar uma calculadora para permitir a adição de novas operações sem modificar o código existente.
 
-#### **Código Inicial**
-A classe `Calculadora` original utilizava um `if-else` para determinar a operação, o que exigia modificações no código para adicionar novas operações.
-
-#### **Refatoração**
-Foi criada uma interface `Operacao` que define o contrato para as operações.  
-Para cada operação, como soma, subtração e multiplicação, foi criada uma classe que implementa a interface `Operacao`.  
-A classe `Calculadora` foi refatorada para aceitar qualquer implementação da interface `Operacao`, sem a necessidade de modificar seu código ao adicionar novas operações.
-
-#### **Código Refatorado**
-
+### **Código Refatorado**
 ```java
-// Interface que define o contrato para as operações
 public interface Operacao {
     int calcular(int a, int b);
 }
 
-// Classe para a operação de soma
 public class Soma implements Operacao {
     @Override
     public int calcular(int a, int b) {
@@ -92,7 +63,6 @@ public class Soma implements Operacao {
     }
 }
 
-// Classe para a operação de subtração
 public class Subtracao implements Operacao {
     @Override
     public int calcular(int a, int b) {
@@ -100,7 +70,6 @@ public class Subtracao implements Operacao {
     }
 }
 
-// Classe para a operação de multiplicação
 public class Multiplicacao implements Operacao {
     @Override
     public int calcular(int a, int b) {
@@ -108,14 +77,12 @@ public class Multiplicacao implements Operacao {
     }
 }
 
-// Classe Calculadora que utiliza a interface Operacao
 public class Calculadora {
     public int calcular(int a, int b, Operacao operacao) {
         return operacao.calcular(a, b);
     }
 }
 
-// Exemplo de uso
 public class Main {
     public static void main(String[] args) {
         Calculadora calculadora = new Calculadora();
@@ -124,40 +91,26 @@ public class Main {
         Operacao subtracao = new Subtracao();
         Operacao multiplicacao = new Multiplicacao();
 
-        System.out.println("Soma: " + calculadora.calcular(5, 3, soma)); // 5 + 3 = 8
-        System.out.println("Subtração: " + calculadora.calcular(5, 3, subtracao)); // 5 - 3 = 2
-        System.out.println("Multiplicação: " + calculadora.calcular(5, 3, multiplicacao)); // 5 * 3 = 15
+        System.out.println("Soma: " + calculadora.calcular(5, 3, soma));
+        System.out.println("Subtração: " + calculadora.calcular(5, 3, subtracao));
+        System.out.println("Multiplicação: " + calculadora.calcular(5, 3, multiplicacao));
     }
 }
 ```
 
-#### **Benefícios da Refatoração**
-- O código está aberto para extensão (adicionar novas operações) e fechado para modificação.  
-- Maior flexibilidade para adicionar funcionalidades sem impactar o código existente.  
-
 ---
 
-### **Exercício 3: Princípio da Substituição de Liskov (LSP)**
+## **Exercício 3: Princípio da Substituição de Liskov (LSP)**
 
-#### **Introdução**
-O LSP estabelece que objetos de uma classe derivada devem ser substituíveis por objetos da classe base sem afetar o funcionamento correto do programa.
+### **Descrição**
+Refatorar classes para garantir que objetos de classes derivadas possam substituir objetos da classe base sem alterar o comportamento do programa.
 
-#### **Contexto**
-O sistema foi inicialmente implementado com uma classe `Quadrado` que estendia a classe `Retangulo`. Essa abordagem causou inconsistências no comportamento de `Quadrado`, pois a definição de largura e altura em `Retangulo` não se aplicava de maneira lógica a `Quadrado`.
-
-#### **Refatoração**
-- Criação da interface `Forma`, que define o método `getArea()`.  
-- Separação das classes `Retangulo` e `Quadrado`, que agora implementam a interface `Forma`.  
-
-#### **Código Refatorado**
-
+### **Código Refatorado**
 ```java
-// Interface que define o contrato para formas geométricas
 public interface Forma {
     int getArea();
 }
 
-// Classe Retangulo que implementa a interface Forma
 public class Retangulo implements Forma {
     private int largura;
     private int altura;
@@ -167,29 +120,16 @@ public class Retangulo implements Forma {
         this.altura = altura;
     }
 
-    public void setLargura(int largura) {
-        this.largura = largura;
-    }
-
-    public void setAltura(int altura) {
-        this.altura = altura;
-    }
-
     @Override
     public int getArea() {
         return largura * altura;
     }
 }
 
-// Classe Quadrado que implementa a interface Forma
 public class Quadrado implements Forma {
     private int lado;
 
     public Quadrado(int lado) {
-        this.lado = lado;
-    }
-
-    public void setLado(int lado) {
         this.lado = lado;
     }
 
@@ -199,7 +139,6 @@ public class Quadrado implements Forma {
     }
 }
 
-// Exemplo de uso
 public class Main {
     public static void main(String[] args) {
         Forma retangulo = new Retangulo(5, 10);
@@ -211,8 +150,100 @@ public class Main {
 }
 ```
 
-#### **Benefícios da Refatoração**
-- Garantia de que o sistema segue o Princípio da Substituição de Liskov.  
-- Código mais sustentável e fácil de entender.  
-- Separação clara das responsabilidades entre as classes.  
+---
 
+## **Exercício 4: Princípio da Segregação de Interfaces (ISP)**
+
+### **Descrição**
+Refatorar uma interface grande em interfaces menores e mais específicas para evitar que classes sejam forçadas a implementar métodos que não utilizam.
+
+### **Código Refatorado**
+```java
+public interface Programador {
+    void programar();
+}
+
+public interface AtendenteDeCliente {
+    void atenderCliente();
+}
+
+public class Desenvolvedor implements Programador {
+    public void programar() {
+        System.out.println("Programando...");
+    }
+}
+
+public class Atendente implements AtendenteDeCliente {
+    public void atenderCliente() {
+        System.out.println("Atendendo cliente...");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Programador desenvolvedor = new Desenvolvedor();
+        desenvolvedor.programar();
+
+        AtendenteDeCliente atendente = new Atendente();
+        atendente.atenderCliente();
+    }
+}
+```
+
+---
+
+
+### Exercício 5: Dependency Inversion Principle (DIP)
+
+#### Descrição
+
+O **Princípio da Inversão de Dependência** (Dependency Inversion Principle - DIP) afirma que:
+
+1. Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem depender de abstrações.
+2. Abstrações não devem depender de detalhes. Detalhes devem depender de abstrações.
+
+Este exercício demonstra como refatorar um código para seguir o DIP, introduzindo uma interface que abstrai o comportamento de dispositivos de entrada e fazendo com que a classe `Computador` dependa dessa abstração.
+
+---
+
+#### Código Original (Violação do DIP)
+
+O código abaixo viola o DIP, pois a classe `Computador` depende diretamente da implementação concreta da classe `Teclado`:
+
+```java
+public class Teclado {
+    public void digitar() {
+        System.out.println("Digitando...");
+    }
+}
+
+public class Computador {
+    private Teclado teclado;
+
+    public Computador() {
+        this.teclado = new Teclado();
+    }
+}
+```
+
+## **Como Executar os Exercícios**
+
+1. Clone este repositório:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   ```
+2. Compile os arquivos `.java`:
+   ```bash
+   javac *.java
+   ```
+3. Execute a classe `Main` correspondente ao exercício:
+   ```bash
+   java Main
+   ```
+
+
+### **Conclusão**
+
+Os exercícios apresentados demonstram como aplicar os princípios SOLID para melhorar a qualidade do código, tornando-o mais modular, coeso e fácil de manter. Cada princípio foi abordado com exemplos práticos e refatorações que ilustram os benefícios de seguir essas diretrizes no desenvolvimento de software.
+
+Este `README.md` inclui todos os quatro exercícios com explicações detalhadas, código refatorado e instruções de execução.
