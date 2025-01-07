@@ -1,4 +1,4 @@
-package solid_exercicio3;
+package solid_exercicios3;
 
 public class Retangulo implements Forma{
     private int largura;
